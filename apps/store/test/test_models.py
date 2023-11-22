@@ -1,6 +1,7 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
+
 from apps.store.models import Category, Product
 
 
@@ -13,7 +14,7 @@ class TestCategoriesModel(TestCase):
     def test_category_model_entry(self):
         # Получаем данные из тестового класса
         # Проверяем, что объект является экземпляром модели Category
-        self.assertTrue(isinstance(self.data, Category))
+        self.assertEqual(isinstance(self.data, Category), True)
         # Проверяем, что строковое представление объекта равно 'django'
         self.assertEqual(str(self.data), 'django')
 
@@ -31,15 +32,20 @@ class TestProductsModel(TestCase):
         # Создаем тестовые данные для пользователя категории и продуктов
         User.objects.create_user(username='admin', password='password')
         Category.objects.create(name='django', slug='django')
-        cls.data1 = Product.objects.create(category_id=1, created_by_id=1, title='django begin',
-                                           slug='django-begin', price='20.00', image='django')
+        cls.data = Product.objects.create(category_id=1, created_by_id=1, title='django begin',
+                                          slug='django-begin', price='20.00', image='django')
 
     def test_products_model_entry(self):
         # Получаем данные из тестового класса
         # Проверяем, что объект является экземпляром модели Product
-        self.assertTrue(isinstance(self.data1, Product))
-        # Проверяем, что строковое представление объекта равно 'django beginners'
-        self.assertEqual(str(self.data1), 'django begin')
+        self.assertEqual(isinstance(self.data, Product), True)
+        # Проверяем, что строковое представление объекта равно 'django begin'
+        self.assertEqual(str(self.data), 'django begin')
+
+    @classmethod
+    def tearDownTestData(cls):
+        # Удаляем только объекты, созданные в setUpTestData для данного класса
+        Product.objects.all().delete()
 
     # def test_products_url(self):
     #     # Получаем данные из тестового класса

@@ -1,5 +1,3 @@
-from django.db import models
-
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -24,7 +22,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product',
                                  verbose_name='Категория')
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_creator',
-                             verbose_name='Создано пользователем')
+                                   verbose_name='Создано пользователем')
     title = models.CharField(max_length=255, verbose_name='Название продукта')
     author = models.CharField(max_length=255, default='admin', verbose_name='автор')
     image = models.ImageField(upload_to='', verbose_name='Изображение')
