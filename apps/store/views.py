@@ -3,12 +3,8 @@ from django.shortcuts import get_object_or_404, render
 from .models import Category, Product
 
 
-def categories(request):
-    return {'categories': Category.objects.all()}
-
-
 def products_list(request):
-    products = Product.objects.all()  # в цикле темплейта используется этот ключ products
+    products = Product.products.all()  # в цикле темплейта используется этот ключ products
     return render(request, 'store/home.html', {'products': products})
 
 

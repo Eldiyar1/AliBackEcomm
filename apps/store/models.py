@@ -3,6 +3,11 @@ from django.db import models
 from django.urls import reverse
 
 
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return super(ProductManager, self).get_queryset().filter(is_active=True)
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name='Категория')
     slug = models.SlugField(max_length=100, unique=True, verbose_name='Слаг')
@@ -25,7 +30,7 @@ class Product(models.Model):
                                    verbose_name='Создано пользователем')
     title = models.CharField(max_length=255, verbose_name='Название продукта')
     author = models.CharField(max_length=255, default='admin', verbose_name='автор')
-    image = models.ImageField(upload_to='', verbose_name='Изображение')
+    image = models.ImageField(upload_to='images/', default='images/')
     description = models.TextField(blank=True, verbose_name='Описание')
     slug = models.SlugField(max_length=255, verbose_name='Слаг')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
@@ -33,6 +38,8 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True, verbose_name='Доступность')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    objects = models.Manager()
+    products = ProductManager()
 
     class Meta:
         verbose_name = 'Продукт'
