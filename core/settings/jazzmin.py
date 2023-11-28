@@ -4,7 +4,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "AliBack",
     "welcome_sign": "Welcome to AliBack",
     "copyright": "AliBack",
-    "search_model": ["auth.User", "auth.Group", "products.Product", "products.Product"],
+    "search_model": ["auth.User", "auth.Group", "products.Product"],
 
     "topmenu_links": [
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
@@ -12,9 +12,9 @@ JAZZMIN_SETTINGS = {
         {"model": "auth.User"},
         {"name": "Support", "url": "https://t.me/elldiyar", "new_window": True},
     ],
+    "default_icon_parents": "fas fa-shopping-basket",
+    "default_icon_children": "fas fa-sitemap",
     "show_sidebar": True,
-    "default_icon_parents": "fas fa-circle",
-    "default_icon_children": "fas fa-dot-circle",
     "changeform_format": "horizontal_tabs",
     "changeform_format_overrides": {
         "auth.user": "collapsible",

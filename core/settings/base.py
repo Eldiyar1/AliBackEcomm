@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+from core.settings.jazzmin import *
+
 from decouple import Csv, config
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -24,7 +26,8 @@ LIBRARY_APPS = [
 
 ]
 LOCAL_APPS = [
-    'apps.store'
+    'apps.store',
+    'apps.basket'
 ]
 
 INSTALLED_APPS = [
@@ -58,6 +61,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.store.context_processors.categories',
+                'apps.basket.context_processors.basket',
             ],
         },
     },
@@ -65,8 +69,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -75,26 +77,12 @@ DATABASES = {
     }
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'Ru-ru'
 

@@ -5,7 +5,8 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('apps.store.urls', namespace='core'))
+    path('', include('apps.store.urls', namespace='store')),
+    path('basket/', include('apps.basket.urls', namespace='basket'))
 ]
 
 if settings.DEBUG:
