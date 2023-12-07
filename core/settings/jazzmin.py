@@ -2,23 +2,28 @@ JAZZMIN_SETTINGS = {
     "site_title": "AliBack",
     "site_header": "AliBack",
     "site_brand": "AliBack",
-    "welcome_sign": "Welcome to AliBack",
+    "welcome_sign": "Добро пожаловать в AliBack",
     "copyright": "AliBack",
     "search_model": ["auth.User", "auth.Group", "products.Product"],
-
+    "show_ui_builder": True,
     "topmenu_links": [
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
         {"app": "AliBack"},
         {"model": "auth.User"},
         {"name": "Support", "url": "https://t.me/elldiyar", "new_window": True},
     ],
-    "default_icon_parents": "fas fa-shopping-basket",
-    "default_icon_children": "fas fa-sitemap",
+    "default_icon_parents": "fas fa-circle",
+    "default_icon_children": "fas fa-dot-circle",
     "show_sidebar": True,
     "changeform_format": "horizontal_tabs",
     "changeform_format_overrides": {
         "auth.user": "collapsible",
         "auth.group": "vertical_tabs",
+    },
+    "icons": {
+        "store.Category": "fas fa-list-alt",
+        "store.Product": "fas fa-store",
+        "auth.Group": "fas fa-users"
     },
 }
 

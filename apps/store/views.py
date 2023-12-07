@@ -4,8 +4,9 @@ from .models import Category, Product
 
 
 def products_list(request):
-    products = Product.products.all()  # в цикле темплейта используется этот ключ products
+    products = Product.products.all()  # products - это пользовательский менеджер(для активных продуктов)
     return render(request, 'store/home.html', {'products': products})
+    # в цикле темплейта используется этот ключ products
 
 
 def product_detail(request, slug):
