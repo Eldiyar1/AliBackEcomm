@@ -1,5 +1,7 @@
+from importlib import import_module
 from unittest import skip
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import HttpRequest
 from django.test import Client, RequestFactory, TestCase
@@ -8,9 +10,10 @@ from django.urls import reverse
 from apps.store.models import Category, Product
 from apps.store.views import products_list
 
+
 @skip("demonstrating skipping")
 class TestSkip(TestCase):
-    def test_skip_exmaple(self):
+    def test_skip_example(self):
         pass
 
 
@@ -45,14 +48,10 @@ class TestViewResponses(TestCase):
 
     def test_homepage_html(self):
         request = HttpRequest()
+        engine = import_module(settings.SESSION_ENGINE)
+        request.session = engine.SessionStore()
         response = products_list(request)
         html = response.content.decode('utf8')
         self.assertIn('<title>AliBack</title>', html)
-        self.assertEqual(response.status_code, 200)
-
-    def test_view_function(self):
-        request = self.factory.get('product/django begin')
-        response = products_list(request)
-        html = response.content.decode('utf8')
-        self.assertIn('<title>AliBack</title>', html)
+        self.assertTrue(html.startswith('<!DOCTYPE html>\n'))
         self.assertEqual(response.status_code, 200)
