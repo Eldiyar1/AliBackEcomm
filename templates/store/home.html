@@ -1,33 +1,26 @@
-{% extends "./base.html" %}
+{% extends "store/index.html" %}
 {% load static %}
 {% block title %}AliBack{% endblock %}
 {% block content %}
 
 
 <main>
-
     <section class="py-5 text-center container">
         <div class="row py-lg-3">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="h1 fw-bold">Ищите, читайте, покупайте, комментируйте</h1>
-                <p class="lead text-muted">Немного краткого и важного о коллекции ниже — ее содержании, создателе,
-                    и т. д. Сделайте его коротким и понятным, но не слишком коротким, чтобы люди не пропустили его
-                    полностью.</p>
+                <h1 class="h1 fw-bold">Исследуйте, читайте, покупайте и делитесь впечатлениями!</h1>
+                <p class="lead text-muted">Новая коллекция книг от талантливого автора ожидает вас. Погружайтесь в увлекательные миры и наслаждайтесь литературным искусством. Создано для истинных ценителей слова и приключений. Добро пожаловать в мир замечательных историй!</p>
                 <p>
                     <a href="#" class="btn btn-primary my-2">Создать аккаунт</a>
                 </p>
             </div>
         </div>
     </section>
-
     <div class="album py-5 bg-light">
         <div class="container">
-
-            <div class="pb-3 h5">Всё</div>
+            <div class="pb-3 h5">Все товары</div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
-
                 {% for product in products %}
-
                 <div class="col">
                     <div class="card shadow-sm">
                         <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}">
@@ -42,14 +35,10 @@
                         </div>
                     </div>
                 </div>
-
                 {% endfor %}
-
             </div>
         </div>
     </div>
-
-
 </main>
 
 {% endblock %}

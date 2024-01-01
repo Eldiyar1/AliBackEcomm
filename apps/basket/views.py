@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 
-from .basket import Basket
+from .services import Basket
 from ..store.models import Product
 
 
@@ -23,18 +23,6 @@ def basket_add(request):
         return response
 
 
-def basket_delete(request):
-    basket = Basket(request)
-    if request.POST.get('action') == 'post':
-        product_id = str(request.POST.get('productid'))
-        basket.delete(product=product_id)
-
-        basket_qty = basket.__len__()
-        basket_total = basket.get_total_price()
-        response = JsonResponse({'qty': basket_qty, 'subtotal': basket_total})
-        return response
-
-
 def basket_update(request):
     basket = Basket(request)
     if request.POST.get('action') == 'post':
@@ -45,4 +33,16 @@ def basket_update(request):
         basketqty = basket.__len__()
         baskettotal = basket.get_total_price()
         response = JsonResponse({'qty': basketqty, 'subtotal': baskettotal})
+        return response
+
+
+def basket_delete(request):
+    basket = Basket(request)
+    if request.POST.get('action') == 'post':
+        product_id = str(request.POST.get('productid'))
+        basket.delete(product=product_id)
+
+        basket_qty = basket.__len__()
+        basket_total = basket.get_total_price()
+        response = JsonResponse({'qty': basket_qty, 'subtotal': basket_total})
         return response
