@@ -23,11 +23,13 @@ DJANGO_APPS = [
 THEME_APPS = ['jazzmin']
 
 LIBRARY_APPS = [
-
+    "phonenumber_field"
 ]
+
 LOCAL_APPS = [
     'apps.store',
-    'apps.basket'
+    'apps.basket',
+    'apps.account'
 ]
 
 INSTALLED_APPS = [
@@ -69,7 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -98,3 +99,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom user model
+AUTH_USER_MODEL = 'account.Customer'
+LOGIN_REDIRECT_URL = 'apps/account/dashboard'
+LOGIN_URL = 'apps/account/login/'
