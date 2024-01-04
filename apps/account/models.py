@@ -1,37 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
-                                        PermissionsMixin)
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.mail import send_mail
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
-
-class CustomAccountManager(BaseUserManager):
-    def create_user(self, email, user_name, password, **extra_fields):
-
-        if not email:
-            raise ValueError(_('Необходимо указать адрес электронной почты'))
-
-        email = self.normalize_email(email)
-        user = self.model(email=email, user_name=user_name, **extra_fields)
-        user.set_password(password)
-        user.save()
-        return user
-
-    def create_superuser(self, email, user_name, password, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError(
-                'Суперпользователь должен иметь is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError(
-                'Суперпользователь должен иметь is_superuser=True.')
-
-        return self.create_user(email, user_name, password, **extra_fields)
+from apps.account.managers import CustomManager
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
@@ -52,7 +26,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('Дата создания'))
     updated = models.DateTimeField(auto_now=True, verbose_name=_('Дата обновления'))
 
-    objects = CustomAccountManager()
+    objects = CustomManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name']
@@ -62,13 +36,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Аккаунты"
 
     def email_user(self, subject, message):
-        send_mail(
-            subject,
-            message,
-            'l@1.com',
-            [self.email],
-            fail_silently=False,
-        )
+        send_mail(subject, message, 'l@1.com', [self.email], fail_silently=False, )
 
     def __str__(self):
         return self.user_name
