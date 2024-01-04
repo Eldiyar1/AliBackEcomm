@@ -1,18 +1,13 @@
 from django import forms
-from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm, SetPasswordForm)
+from django.contrib.auth.forms import (AuthenticationForm)  # PasswordResetForm, SetPasswordForm
 from .models import Customer
 
 
-# class UserLoginForm(AuthenticationForm):
-#     username = forms.CharField(widget=forms.TextInput(
-#         attrs={'class': 'form-control mb-3', 'placeholder': 'Имя пользователя', 'id': 'login-username'}))
-#     password = forms.CharField(widget=forms.PasswordInput(
-#         attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Пароль',
-#             'id': 'login-pwd',
-#         }
-#     ))
+class UserLoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control mb-3', 'placeholder': 'Имя пользователя', 'id': 'login-username'}))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'form-control', 'placeholder': 'Пароль', 'id': 'login-pwd', }))
 
 
 class RegistrationForm(forms.ModelForm):
@@ -35,7 +30,7 @@ class RegistrationForm(forms.ModelForm):
     def clean_password2(self):
         data = self.cleaned_data
         if data['password'] != data['password2']:
-            raise forms.ValidationError('Пароли не совпадают.')
+            raise forms.ValidationError('Пароли не совпадают')
         return data['password2']
 
     def clean_email(self):

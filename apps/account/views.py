@@ -14,7 +14,7 @@ from apps.account.tokens import account_activation_token
 
 @login_required
 def dashboard(request):
-    return render(request, 'account/user/dashboard.html')
+    return render(request, 'account/dashboard/dashboard.html')
 
 
 def account_register(request):
