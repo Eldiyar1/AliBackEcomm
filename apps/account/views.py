@@ -68,3 +68,12 @@ def edit_profile(request):
     else:
         form = UserEditForm(instance=request.user)
     return render(request, "account/dashboard/edit_profile.html", {"form": form})
+
+
+@login_required
+def delete_user(request):
+    user = Customer.objects.get(user_name=request.user)
+    user.is_active = False
+    user.save()
+    logout(request)
+    return redirect('account:delete_confirmation')
