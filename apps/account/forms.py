@@ -50,6 +50,7 @@ class RegistrationForm(forms.ModelForm):
         self.fields['password2'].widget.attrs.update(
             {'class': 'form-control', 'placeholder': 'Повторите пароль'})
 
+
 #
 # class PwdResetForm(PasswordResetForm):
 #     email = forms.EmailField(max_length=254, widget=forms.TextInput(
@@ -72,25 +73,24 @@ class RegistrationForm(forms.ModelForm):
 #         label='Повторите пароль', widget=forms.PasswordInput(
 #             attrs={'class': 'form-control mb-3', 'placeholder': 'Повторите пароль', 'id': 'form-new-pass2'}))
 #
-#
-# class UserEditForm(forms.ModelForm):
-#     email = forms.EmailField(
-#         label='Электронная почта (нельзя изменить)', max_length=200, widget=forms.TextInput(
-#             attrs={'class': 'form-control mb-3', 'placeholder': 'Электронная почта', 'id': 'form-email',
-#                    'readonly': 'readonly'}))
-#     user_name = forms.CharField(
-#         label='Имя пользователя', min_length=4, max_length=50, widget=forms.TextInput(
-#             attrs={'class': 'form-control mb-3', 'placeholder': 'Имя пользователя', 'id': 'form-firstname',
-#                    'readonly': 'readonly'}))
-#     first_name = forms.CharField(
-#         label='Имя', min_length=4, max_length=50, widget=forms.TextInput(
-#             attrs={'class': 'form-control mb-3', 'placeholder': 'Имя', 'id': 'form-lastname'}))
-#
-#     class Meta:
-#         model = Customer
-#         fields = ('email', 'user_name', 'first_name',)
-#
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.fields['user_name'].required = True
-#         self.fields['email'].required = True
+class UserEditForm(forms.ModelForm):
+    email = forms.EmailField(
+        label='Электронная почта (нельзя изменить)', max_length=200, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Электронная почта', 'id': 'form-email',
+                   'readonly': 'readonly'}))
+    user_name = forms.CharField(
+        label='Имя пользователя', min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Имя пользователя', 'id': 'form-firstname',
+                   'readonly': 'readonly'}))
+    first_name = forms.CharField(
+        label='Имя', min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Имя', 'id': 'form-lastname'}))
+
+    class Meta:
+        model = Customer
+        fields = ('email', 'user_name', 'first_name',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['user_name'].required = True
+        self.fields['email'].required = True

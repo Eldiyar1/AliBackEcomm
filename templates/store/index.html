@@ -75,7 +75,7 @@
                         <span class="fs15 fw500">Выйти</span>
                     </a>
                 {% else %}
-                    <a type="button" role="button" href="#"
+                    <a type="button" role="button" href="{% url 'account:login' %}"
                        class="btn btn-outline-secondary border-0 basket-btn">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -89,7 +89,7 @@
                 {% endif %}
 
 
-                <a type="button" role="button" href="#"
+                <a type="button" role="button" href="{% url 'account:edit_details' %}"
                    class="btn btn-outline-secondary border-0 basket-btn">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -120,18 +120,6 @@
                     </div>
                     <span class="fs15 fw500">Корзина</span>
                 </a>
-            </div>
-            <div class="d-md-none d-lg-none d-xl-none">
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        <li><a class="dropdown-item" href="{% url "store:products_list" %}">Все товары</a></li>
-                        {% for c in categories %}
-                            <li {% if category.slug == c.slug %}class="selected" {% endif %}>
-                                <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name|title }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
             </div>
             <form class="d-flex w-100 d-md-none">
                 <input class="form-control me-2" type="search" placeholder="Поиск"
