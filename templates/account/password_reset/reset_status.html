@@ -1,0 +1,18 @@
+{% extends "store/index.html" %}
+{% block title %}Статус сброса{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div>
+        {% if 'email' in request.get_full_path %}
+        <h3 class="mb-4">Сброс пароля выполнен успешно</h3>
+        <p>Проверьте свою электронную почту для получения инструкций</p>
+        {% endif%}
+        {% if 'complete' in request.get_full_path %}
+        <h3 class="mb-4">Сброс пароля выполнен успешно</h3>
+        <a href="{% url "account:login" %}">Войти</a>
+        {% endif%}
+    </div>
+</div>
+
+{% endblock %}

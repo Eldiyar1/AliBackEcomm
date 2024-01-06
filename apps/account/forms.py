@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import (AuthenticationForm)  # PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm, SetPasswordForm)
 from .models import Customer
 
 
@@ -51,28 +51,6 @@ class RegistrationForm(forms.ModelForm):
             {'class': 'form-control', 'placeholder': 'Повторите пароль'})
 
 
-#
-# class PwdResetForm(PasswordResetForm):
-#     email = forms.EmailField(max_length=254, widget=forms.TextInput(
-#         attrs={'class': 'form-control mb-3', 'placeholder': 'Электронная почта', 'id': 'form-email'}))
-#
-#     def clean_email(self):
-#         email = self.cleaned_data['email']
-#         u = Customer.objects.filter(email=email)
-#         if not u:
-#             raise forms.ValidationError(
-#                 'К сожалению, мы не можем найти такой адрес электронной почты')
-#         return email
-#
-#
-# class PwdResetConfirmForm(SetPasswordForm):
-#     new_password1 = forms.CharField(
-#         label='Новый пароль', widget=forms.PasswordInput(
-#             attrs={'class': 'form-control mb-3', 'placeholder': 'Новый пароль', 'id': 'form-newpass'}))
-#     new_password2 = forms.CharField(
-#         label='Повторите пароль', widget=forms.PasswordInput(
-#             attrs={'class': 'form-control mb-3', 'placeholder': 'Повторите пароль', 'id': 'form-new-pass2'}))
-#
 class UserEditForm(forms.ModelForm):
     email = forms.EmailField(
         label='Электронная почта (нельзя изменить)', max_length=200, widget=forms.TextInput(
@@ -94,3 +72,23 @@ class UserEditForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['user_name'].required = True
         self.fields['email'].required = True
+
+
+class PwdResetForm(PasswordResetForm):
+    email = forms.EmailField(max_length=254, widget=forms.TextInput(
+        attrs={'class': 'form-control mb-3', 'placeholder': 'Электронная почта', 'id': 'form-email'}))
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        user_email = Customer.objects.filter(email=email)
+        if not user_email:
+            raise forms.ValidationError('К сожалению, мы не можем найти такой адрес электронной почты')
+        return email
+
+
+class PwdResetConfirmForm(SetPasswordForm):
+    new_password1 = forms.CharField(label='Новый пароль', widget=forms.PasswordInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Новый пароль', 'id': 'form-new-pass'}))
+    new_password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Повторите пароль', 'id': 'form-new-pass2'}))
+

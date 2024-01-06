@@ -36,7 +36,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Аккаунты"
 
     def email_user(self, subject, message):
-        send_mail(subject, message, 'l@1.com', [self.email], fail_silently=False, )
+        send_mail(subject, message, 'l@1.com', [self.email], fail_silently=False)
 
     def __str__(self):
         return self.user_name

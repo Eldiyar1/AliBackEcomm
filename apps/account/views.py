@@ -19,7 +19,7 @@ def dashboard(request):
 
 def account_register(request):
     if request.user.is_authenticated:
-        return redirect('/')
+        return redirect('account:dashboard')
 
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -62,12 +62,12 @@ def account_activate(request, uidb64, token):
 @login_required
 def edit_profile(request):
     if request.method == "POST":
-        form = UserEditForm(instance=request.user, data=request.POST)
-        if form.is_valid():
-            form.save()
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+        if user_form.is_valid():
+            user_form.save()
     else:
-        form = UserEditForm(instance=request.user)
-    return render(request, "account/dashboard/edit_profile.html", {"form": form})
+        user_form = UserEditForm(instance=request.user)
+    return render(request, "account/dashboard/edit_profile.html", {"user_form": user_form})
 
 
 @login_required

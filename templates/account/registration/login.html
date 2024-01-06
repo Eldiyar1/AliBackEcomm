@@ -33,7 +33,7 @@
 
                                 {% if form.errors %}
                                 <div class="alert alert-primary" role="alert">
-                                    Error: Неверное имя пользователя или пароль!
+                                    Ошибка: Неверное имя пользователя или пароль!
                                 </div>
                                 {% endif %}
 
@@ -52,12 +52,11 @@
                                 </p>
                             </form>
                             <p class="small text-center pt-4">
-                                {% comment %} <a href="{% url "password_reset" %}">Forgotten Password?</a> {% endcomment %}
+                                <a href="{% url "account:pwd_reset" %}">Forgotten Password?</a>
                             </p>
                             <p class="small text-center">
-                                {% comment %} <a href="{% url "accounts:register" %}">Help Center?</a> {% endcomment %}
+                                <a href="{% url "account:register" %}">Help Center?</a>
                             </p>
-                     
                         </div>
                     </div>
                 </div>
