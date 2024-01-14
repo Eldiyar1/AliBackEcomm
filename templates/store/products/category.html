@@ -1,15 +1,26 @@
-{% extends "store/base.html" %}
-{% load static %}
+{% extends "base.html" %}
 {% block title %}
-    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+    {% if category %}{{ category.name }}{% else %}Товары{% endif %}
 {% endblock %}
 {% block content %}
-    
-    <main>
-        <div class="container">
-            <div class="row">
-                <div class="album py-5">
-                    <div class="pb-3"><h1 class="h3">Список товаров</h1></div>
+
+    <div class="container" style="max-width: 1000px">
+        <div class="col-12">
+            <h1 class="h2">{{ category.name|title }}</h1>
+        </div>
+        <div class="col-12 d-flex justify-content-between">
+            <div><b>Список товаров</b></div>
+        </div>
+        <hr/>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="album">
+                {% if not products %}
+                    <div class="col-12">В настоящее время активных продуктов нет<p><a
+                            href="{% url 'store:products_list' %}">Вернуться на главную страницу</a></p>
+                    </div>
+                {% else %}
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
                         {% for product in products %}
                             <div class="col">
@@ -28,9 +39,9 @@
                             </div>
                         {% endfor %}
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
-    </main>
-
+    </div>
+    
 {% endblock %}

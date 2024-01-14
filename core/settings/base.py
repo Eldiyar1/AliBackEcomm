@@ -1,10 +1,13 @@
 import os
 from pathlib import Path
 import django.conf.locale
-from decouple import Csv, config
+from decouple import config, Csv
+from dotenv import load_dotenv
+
+# Загрузка переменных среды из файла .env
+load_dotenv()
 
 from core.settings.jazzmin import *
-
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -128,10 +131,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 BASKET_SESSION_ID = 'basket'
 
 # Stripe Payment
-
-# STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
-# STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
-# STRIPE_ENDPOINT_SECRET = config('STRIPE_ENDPOINT_SECRET')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_ENDPOINT_SECRET = config('STRIPE_ENDPOINT_SECRET')
 # stripe listen --forward-to localhost:8000/payment/webhook/
 
 # Custom user model

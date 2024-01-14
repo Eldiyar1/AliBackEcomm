@@ -1,6 +1,6 @@
 //'use strict';
 
-var stripe = Stripe('\n');
+var stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
 var elem = document.getElementById('submit');
 clientsecret = elem.getAttribute('data-secret');

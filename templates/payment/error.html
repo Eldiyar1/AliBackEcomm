@@ -1,11 +1,12 @@
-{% extends "store/base.html" %}
-{% block title %}Неверная активация{% endblock %}
-{% block content %}
+{% extends "payment/sub_base.html" %}
+{% block title %}Ошибка{% endblock %}
+{% block sub_content %}
 
 <div class="container">
-    <div>
+  <div class="col-12 col-lg-6">
         <h3 class="mb-4">Ошибка</h3>
         <p>Пожалуйста свяжитесь с нашей тех-поддержкой</p>
+        <a href="{% url "account:dashboard" %}">Dashboard</a>
     </div>
 </div>
 

@@ -17,7 +17,7 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     total_paid = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Общая сумма')
     order_key = models.CharField(max_length=200, verbose_name='Ключ заказа')
-    billing_status = models.BooleanField(default=False, verbose_name='Статус выставления счета')
+    billing_status = models.BooleanField(default=False, verbose_name='Статус оплаты')
 
     class Meta:
         ordering = ('-created',)

@@ -42,7 +42,7 @@ def account_register(request):
                 'token': account_activation_token.make_token(user),
             })
             user.email_user(subject=subject, message=message)
-            return HttpResponse('Вы успешно зарегистрировались, код активации был отправлен к вам на почту')
+            return render(request, 'account/registration/register_email_confirm.html', {'form': form})
     else:
         form = RegistrationForm()
     return render(request, 'account/registration/register.html', {'form': form})
