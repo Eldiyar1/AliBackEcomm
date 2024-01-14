@@ -1,9 +1,10 @@
 import os
 from pathlib import Path
+import django.conf.locale
+from decouple import Csv, config
 
 from core.settings.jazzmin import *
 
-from decouple import Csv, config
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -29,7 +30,9 @@ LIBRARY_APPS = [
 LOCAL_APPS = [
     'apps.store',
     'apps.basket',
-    'apps.account'
+    'apps.account',
+    'apps.payment',
+    'apps.orders'
 ]
 
 INSTALLED_APPS = [
@@ -87,6 +90,27 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'Ru-ru'
 
+EXTRA_LANG_INFO = {
+    'ky': {
+        'bidi': False,
+        'code': 'ky',
+        'name': 'Kyrgyz',
+        'name_local': u"Кыргызча",
+    },
+}
+
+django.conf.locale.LANG_INFO.update(EXTRA_LANG_INFO)
+
+LANGUAGES = (
+    ('ru', 'Russian'),
+    ('ky', 'Kyrgyz'),
+)
+
+LOCALE_PATHS = (
+    'locale',
+    # os.path.join(PROJECT_DIR, 'locale'),
+)
+
 TIME_ZONE = 'Asia/Bishkek'
 
 USE_I18N = True
@@ -99,6 +123,16 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Basket session ID
+BASKET_SESSION_ID = 'basket'
+
+# Stripe Payment
+
+# STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+# STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+# STRIPE_ENDPOINT_SECRET = config('STRIPE_ENDPOINT_SECRET')
+# stripe listen --forward-to localhost:8000/payment/webhook/
 
 # Custom user model
 AUTH_USER_MODEL = 'account.Customer'

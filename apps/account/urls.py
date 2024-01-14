@@ -26,7 +26,6 @@ urlpatterns = [
     # Reset password
 
     # Password Reset URL
-
     path('password_reset/', auth_views.PasswordResetView.as_view(
         template_name="account/password_reset/password_reset_form.html",
         success_url='password_reset_email_confirm',
@@ -34,17 +33,17 @@ urlpatterns = [
         form_class=PwdResetForm), name='pwd_reset'
          ),
 
-    # Password Reset Confirmation URL
-    path('password_reset_confirm/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(
-        template_name='account/password_reset/password_reset_confirm.html',
-        success_url='/account/password_reset_complete/',
-        form_class=PwdResetConfirmForm), name="password_reset_confirm"
-         ),
-
     # Password Reset Email Confirmation Success URL
     path('password_reset/password_reset_email_confirm/', TemplateView.as_view(
         template_name="account/password_reset/reset_status.html"),
          name='password_reset_done'
+         ),
+
+    # Password Reset Confirmation URL
+    path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
+        template_name='account/password_reset/password_reset_confirm.html',
+        success_url='/account/password_reset_complete/',
+        form_class=PwdResetConfirmForm), name="password_reset_confirm"
          ),
 
     # Password Reset Complete URL

@@ -1,4 +1,4 @@
-{% extends "store/index.html" %}
+{% extends "store/base.html" %}
 {% block title %}Вход{% endblock %}
 {% block content %}
 
@@ -42,20 +42,24 @@
 
                                 <label class="form-label">{{ form.password.label}}</label>
                                 {{ form.password}}
+                            
                                 <div class="d-grid gap-2">
                                     <input type="hidden" name="next" value="{{ next }}">
                                     <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">Войти
                                     </button>
                                 </div>
+                            
                                 <p class="text-center pb-3">
                                     <a href="{% url "account:register" %}">Создать учетную запись</a>
                                 </p>
                             </form>
+                        
                             <p class="small text-center pt-4">
-                                <a href="{% url "account:pwd_reset" %}">Forgotten Password?</a>
+                                <a href="{% url "account:pwd_reset" %}">Забыли пароль?</a>
                             </p>
+                        
                             <p class="small text-center">
-                                <a href="{% url "account:register" %}">Help Center?</a>
+                                <a href="{% url "account:register" %}">Еще нет аккаунта?</a>
                             </p>
                         </div>
                     </div>

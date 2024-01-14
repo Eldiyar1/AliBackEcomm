@@ -10,7 +10,7 @@ from apps.account.managers import CustomManager
 
 class Customer(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, verbose_name=_('Адрес электронной почты'))
-    user_name = models.CharField(max_length=150, unique=True, verbose_name=_('Имя пользователя'))
+    user_name = models.CharField(max_length=150, unique=True, verbose_name=_('Юзернейм'))
     first_name = models.CharField(max_length=150, blank=True, verbose_name=_('Имя'))
     about = models.TextField(max_length=500, blank=True, verbose_name=_('О себе'))
     # Детали доставки

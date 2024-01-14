@@ -91,4 +91,3 @@ class PwdResetConfirmForm(SetPasswordForm):
             attrs={'class': 'form-control mb-3', 'placeholder': 'Новый пароль', 'id': 'form-new-pass'}))
     new_password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput(
             attrs={'class': 'form-control mb-3', 'placeholder': 'Повторите пароль', 'id': 'form-new-pass2'}))
-
