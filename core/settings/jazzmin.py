@@ -1,6 +1,7 @@
 JAZZMIN_SETTINGS = {
     "site_title": "AliBack",
     "site_header": "AliBack",
+    "site_logo_classes": "img-circle",
     "site_brand": "AliBack",
     "welcome_sign": "Добро пожаловать в AliBack",
     "copyright": "AliBack",
@@ -15,6 +16,7 @@ JAZZMIN_SETTINGS = {
     "default_icon_parents": "fas fa-circle",
     "default_icon_children": "fas fa-dot-circle",
     "show_sidebar": True,
+    "navigation_expanded": True,
     "changeform_format": "horizontal_tabs",
     "changeform_format_overrides": {
         "auth.user": "collapsible",
@@ -56,5 +58,6 @@ JAZZMIN_UI_TWEAKS = {
         "warning": "btn-warning",
         "danger": "btn-danger",
         "success": "btn-primary"
-    }
+    },
+    "actions_sticky_top": True
 }

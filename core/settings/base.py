@@ -3,11 +3,9 @@ from pathlib import Path
 import django.conf.locale
 from decouple import config, Csv
 from dotenv import load_dotenv
-
-# Загрузка переменных среды из файла .env
-load_dotenv()
-
 from core.settings.jazzmin import *
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
