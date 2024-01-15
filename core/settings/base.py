@@ -25,7 +25,8 @@ DJANGO_APPS = [
 THEME_APPS = ['jazzmin']
 
 LIBRARY_APPS = [
-    "phonenumber_field"
+    "phonenumber_field",
+    "mptt"
 ]
 
 LOCAL_APPS = [
