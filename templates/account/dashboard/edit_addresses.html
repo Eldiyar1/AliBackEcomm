@@ -1,0 +1,43 @@
+{% extends "account/sub_base.html" %}
+{% block title %}Редактирование Адресов{% endblock %}
+
+{% block sub_content %}
+<div class="col-6 mx-auto">
+  <h1 class="h3">Создание/Редактирование Адреса</h1>
+  <div>Добавьте новый <b>адрес</b> доставки и настройки доставки</div>
+  <hr />
+  <form name="address_form" class="account-form" method="post" enctype="multipart/form-data">
+    {% if form.errors %}
+    <div class="alert alert-primary" role="alert">
+      Ошибка: Пожалуйста, попробуйте снова!
+    </div>
+    {% endif %}
+    {% csrf_token %}
+    <label class="small fw-bold">{{ form.full_name.label}}</label>
+    {{ form.full_name }}
+    <label class="small fw-bold">{{ form.phone.label}}</label>
+    {{ form.phone }}
+    <label class="small fw-bold">{{ form.address_line_1.label}}</label>
+    {{ form.address_line_1 }}
+    <label class="small fw-bold">{{ form.address_line_2.label}}</label>
+    {{ form.address_line_2 }}
+    <label class="small fw-bold">{{ form.town_city.label}}</label>
+    {{ form.town_city }}
+    <label class="small fw-bold">{{ form.postcode.label}}</label>
+    {{ form.postcode }}
+    <button class="btn btn-primary btn-block py-2 mb-4 mt-4 fw-bold w-100" type="button" value="Submit" onclick="submitForm()">
+      Добавить Адрес
+    </button>
+  </form>
+
+</div>
+
+<script> 
+function submitForm() {
+   var form = document.getElementsByName('address_form')[0];
+   form.submit(); // Отправить форму
+   form.reset();  // Сбросить все данные формы
+   return false; // Предотвратить обновление страницы
+}
+</script>
+{% endblock %}

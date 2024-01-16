@@ -1,12 +1,13 @@
 from django.db import models
+from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 
 
 class Category(MPTTModel):
-    name = models.CharField(
-        verbose_name=_("Название категории"), help_text=_("Обязательно и уникально"), max_length=255, unique=True)
+    name = models.CharField(verbose_name=_("Название категории"), help_text=_("Обязательно и уникально"),
+                            max_length=255, unique=True)
     slug = models.SlugField(verbose_name=_("URL категории"), max_length=255, unique=True)
     parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="children",
                             verbose_name=_("Родительская категория"))
@@ -60,28 +61,17 @@ class Product(models.Model):
     regular_price = models.DecimalField(
         verbose_name=_("Обычная цена"),
         help_text=_("Максимум 999.99"),
-        error_messages={
-            "name": {"max_length": _("Цена должна быть от 0 до 999.99."), },
-        },
+        error_messages={"name": {"max_length": _("Цена должна быть от 0 до 999.99."), }, },
         max_digits=5,
-        decimal_places=2,
-    )
+        decimal_places=2)
     discount_price = models.DecimalField(
         verbose_name=_("Цена со скидкой"),
         help_text=_("Максимум 999.99"),
-        error_messages={
-            "name": {
-                "max_length": _("Цена должна быть от 0 до 999.99."),
-            },
-        },
+        error_messages={"name": {"max_length": _("Цена должна быть от 0 до 999.99."), }, },
         max_digits=5,
-        decimal_places=2,
-    )
-    is_active = models.BooleanField(
-        verbose_name=_("Активный"),
-        help_text=_("Изменить видимость продукта"),
-        default=True,
-    )
+        decimal_places=2)
+    is_active = models.BooleanField(verbose_name=_("Активный"), help_text=_("Изменить видимость продукта"),
+                                    default=True)
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
 

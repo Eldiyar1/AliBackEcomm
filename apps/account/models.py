@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.mail import send_mail
@@ -9,16 +11,8 @@ from apps.account.managers import CustomManager
 
 class Customer(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, verbose_name=_('Адрес электронной почты'))
-    user_name = models.CharField(max_length=150, unique=True, verbose_name=_('Юзернейм'))
-    first_name = models.CharField(max_length=150, blank=True, verbose_name=_('Имя'))
-    about = models.TextField(max_length=500, blank=True, verbose_name=_('О себе'))
-    # Детали доставки
-    phone_number = PhoneNumberField(verbose_name=_('Номер телефона'))
-    postcode = models.CharField(max_length=12, blank=True, verbose_name=_('Почтовый индекс'))
-    address_line_1 = models.CharField(max_length=150, blank=True, verbose_name=_('Адрес, строка 1'))
-    address_line_2 = models.CharField(max_length=150, blank=True, verbose_name=_('Адрес, строка 2'))
-    town_city = models.CharField(max_length=150, blank=True, verbose_name=_('Город'))
-    # Статус пользователя
+    name = models.CharField(max_length=150, blank=True, verbose_name=_('Имя'))
+    mobile = PhoneNumberField(verbose_name=_('Номер телефона'))
     is_active = models.BooleanField(default=False, verbose_name=_('Активен'))
     is_staff = models.BooleanField(default=False, verbose_name=_('Администратор'))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('Дата создания'))
@@ -27,7 +21,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     objects = CustomManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['user_name']
+    REQUIRED_FIELDS = ['name']
 
     class Meta:
         verbose_name = "Аккаунт"
@@ -37,4 +31,26 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, 'l@1.com', [self.email], fail_silently=False)
 
     def __str__(self):
-        return self.user_name
+        return self.name
+
+
+class Address(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    customer = models.ForeignKey(Customer, verbose_name=_("Покупатель"), on_delete=models.CASCADE)
+    full_name = models.CharField(verbose_name=_("Полное имя"), max_length=150)
+    phone = PhoneNumberField(verbose_name=_('Номер телефона'))
+    postcode = models.CharField(max_length=12, blank=True, verbose_name=_('Почтовый индекс'))
+    address_line_1 = models.CharField(max_length=150, blank=True, verbose_name=_('Адрес, строка 1'))
+    address_line_2 = models.CharField(max_length=150, blank=True, verbose_name=_('Адрес, строка 2'))
+    town_city = models.CharField(max_length=150, blank=True, verbose_name=_('Город'))
+    delivery_instructions = models.CharField(max_length=255, verbose_name=_("Инструкции по доставке"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Создано"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Обновлено"))
+    default = models.BooleanField(default=False, verbose_name=_("По умолчанию"))
+
+    class Meta:
+        verbose_name = _("Адрес")
+        verbose_name_plural = _("Адреса")
+
+    def __str__(self):
+        return _("Адрес")
