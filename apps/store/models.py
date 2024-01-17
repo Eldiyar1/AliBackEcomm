@@ -74,6 +74,7 @@ class Product(models.Model):
                                     default=True)
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
+    users_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="user_wishlists", blank=True)
 
     class Meta:
         ordering = ("-created_at",)

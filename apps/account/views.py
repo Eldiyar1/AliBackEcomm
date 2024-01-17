@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
@@ -12,13 +13,31 @@ from apps.account.forms import RegistrationForm, UserEditForm, UserAddressForm
 from apps.account.models import Customer, Address
 from apps.account.tokens import account_activation_token
 from apps.orders.views import user_orders
+from apps.store.models import Product
+
+
+@login_required
+def wishlist(request):
+    products = Product.objects.filter(users_wishlist=request.user)
+    return render(request, "account/dashboard/user_wish_list.html", {"wishlist": products})
+
+
+@login_required
+def add_to_wishlist(request, id):
+    product = get_object_or_404(Product, id=id)
+    if product.users_wishlist.filter(id=request.user.id).exists():
+        product.users_wishlist.remove(request.user)
+        messages.success(request, product.title + " был удален из вашего списка желаемого")
+    else:
+        product.users_wishlist.add(request.user)
+        messages.success(request, product.title + " был добавлен в ваш список желаемого")
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
 
 @login_required
 def dashboard(request):
     orders = user_orders(request)
-    return render(request,
-                  'account/dashboard/dashboard.html',
+    return render(request, 'account/dashboard/dashboard.html',
                   {'section': 'profile', 'orders': orders})
 
 
